@@ -1,0 +1,19 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+flask = "*"
+gevent = "*"
+natural = "*"
+dateutils = "*"
+pymongo = {extras = ["srv"], version = "*"}
+click = "*"
+python-dotenv = "*"
+flask-pymongo = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.9"
