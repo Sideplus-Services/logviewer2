@@ -11,7 +11,8 @@ dateutils = "*"
 pymongo = {extras = ["srv"], version = "*"}
 click = "*"
 python-dotenv = "*"
-flask-pymongo = "*"
+requests-oauthlib = "*"
+flask-discord = {editable = true, ref = "v9", git = "https://github.com/weibeu/Flask-Discord.git"}
 
 [dev-packages]
 

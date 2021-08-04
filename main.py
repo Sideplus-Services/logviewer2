@@ -1,11 +1,14 @@
 from gevent import monkey
 
 monkey.patch_all()
+
+import os
+os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
+
 import click
 from dotenv import dotenv_values
 from werkzeug.serving import run_simple
-from logviewer.web import app
-
+from logviewer2.web import app
 config = dotenv_values(".env")
 
 

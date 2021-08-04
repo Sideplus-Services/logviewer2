@@ -5,7 +5,7 @@ from datetime import datetime
 from flask import render_template
 from natural.date import duration
 
-from logviewer.log_utils.formatter import format_content_html
+from logviewer2.log_utils.formatter import format_content_html
 
 
 class LogEntry:
@@ -59,8 +59,8 @@ class LogEntry:
         groups.append(curr)
         return groups
 
-    def render_html(self):
-        return render_template("logbase.html", log_entry=self)
+    def render_html(self, **kwargs):
+        return render_template("logbase.html", log_entry=self, **kwargs)
 
     def render_plain_text(self):
         messages = self.messages
