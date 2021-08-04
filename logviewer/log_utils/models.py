@@ -1,5 +1,5 @@
 # This is originaly from https://github.com/kyb3r/logviewer/blob/master/core/models.py but edited with flask in mind please support the origonal author(s) :)
-
+# License (GNU General public License v3.0) https://github.com/kyb3r/logviewer/blob/master/LICENSE
 import dateutil.parser
 from datetime import datetime
 from flask import render_template
