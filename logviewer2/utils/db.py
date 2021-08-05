@@ -1,21 +1,13 @@
-import re
-
 from dotenv import dotenv_values
 from pymongo import MongoClient
-
-RE_MONGODB = re.compile("MONGO_URI_(.*)")
+from logviewer2.utils.regexcfg import GET_MCONFIG
 
 
 class DB:
     def __init__(self):
         self.envfile = dotenv_values(".env")
-        self.dbs = dict()
+        self.dbs = GET_MCONFIG(self.envfile)
         self.dbs_conns = dict()
-
-        for (key, value) in self.envfile.items():
-            match = re.match(RE_MONGODB, key)
-            if match:
-                self.dbs[int(match.groups()[0])] = value
 
         for (gid, connURI) in self.dbs.items():
             self.dbs_conns[gid] = MongoClient(connURI).modmail_bot
