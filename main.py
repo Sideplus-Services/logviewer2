@@ -24,7 +24,7 @@ def serve(debug):
         app.debug = True
         return run_simple(config.get("HOST", "localhost"), int(config.get("PORT", "5214")), app, use_debugger=True, use_reloader=True, use_evalex=True, threaded=True)
     else:
-        return run_simple(config.HOST, config.PORT, app, threaded=True)
+        return run_simple(config.get("HOST", "localhost"), int(config.get("PORT", "5214")), app, threaded=True)
 
 
 if __name__ == '__main__':
