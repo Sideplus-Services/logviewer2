@@ -1,11 +1,9 @@
 from dotenv import dotenv_values
-from flask import Flask, render_template, Response, url_for, redirect, current_app
-from flask_discord import DiscordOAuth2Session, requires_authorization
-
+from flask import Flask, render_template, Response, g
+from flask_discord import DiscordOAuth2Session
 from logviewer2.utils.decos import with_logs, with_user
 from logviewer2.utils.db import DB
 from logviewer2.utils.regexcfg import GET_DCONFIG
-from logviewer2.log_utils.models import LogEntry
 from logviewer2.views import Auth
 
 config = dotenv_values(".env")
@@ -26,36 +24,39 @@ app.register_blueprint(Auth)
 
 # errors
 @app.errorhandler(403)
+@with_user
 def page_not_found(e):
-    return render_template("unauthorized.html"), 403
+    return render_template("unauthorized.html", user=g.user), 403
 
 
 @app.errorhandler(404)
+@with_user
 def page_not_found(e):
-    return render_template("not_found.html"), 404
+    return render_template("not_found.html", user=g.user), 404
 
 
 @app.errorhandler(500)
+@with_user
 def page_not_found(e):
-    return render_template("server_error.html"), 500
+    return render_template("server_error.html", user=g.user), 500
 
 
 # Pages
 @app.route("/")
 @with_user
-def root(user):
-    return render_template('index.html', user=user)
+def root():
+    return render_template('index.html', user=g.user)
 
 
 @app.route("/<int:gid>/<logkey>")
 @with_user
 @with_logs
-def logviewer_render(document, user, gid, logkey):
-    return LogEntry(document).render_html(user=user)
+def logviewer_render(gid, logkey):
+    return g.document.render_html(user=g.user)
 
 
 # API killme
 @app.route("/api/raw/<int:gid>/<logkey>")
 @with_logs
-def api_raw_render(document, gid, logkey):
-    return Response(LogEntry(document).render_plain_text(), mimetype="text/plain"), 200
+def api_raw_render(gid, logkey):
+    return Response(g.document.render_plain_text(), mimetype="text/plain"), 200

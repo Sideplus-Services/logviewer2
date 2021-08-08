@@ -18,3 +18,7 @@ flask-discord = {editable = true, ref = "v9", git = "https://github.com/weibeu/F
 
 [requires]
 python_version = "3.9"
+
+[scripts]
+web = "python main.py serve --no-debug"
+webd = "python main.py serve --debug"
