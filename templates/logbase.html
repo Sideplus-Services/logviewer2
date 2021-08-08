@@ -104,7 +104,7 @@
                     {% for message in group.messages %}
                         {% if message.content %}
                             <div class="chatlog__content" id="{{ message.id }}">
-                                {{ message.content }}
+                                {{ message.content | safe }}
                                 {% if message.edited %}
                                 <span class="chatlog__edited-timestamp">(edited)</span>
                                 {% endif %}
