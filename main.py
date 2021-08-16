@@ -1,4 +1,8 @@
+from logging.config import dictConfig
+
 from gevent import monkey
+
+from logviewer2.constants import Constants
 
 monkey.patch_all()
 
@@ -14,7 +18,12 @@ config = dotenv_values(".env")
 
 @click.group()
 def cli():
-    pass
+    dictConfig({
+        'version': 1,
+        'formatters': {'default': {'format': Constants.LOG_FORMAT}},
+        'handlers': {'wsgi': {'class': 'logging.StreamHandler', 'stream': 'ext://sys.stdout', 'formatter': 'default'}},
+        'root': {'level': 'INFO', 'handlers': ['wsgi']}
+    })
 
 
 @cli.command()
