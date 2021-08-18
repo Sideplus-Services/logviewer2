@@ -6,6 +6,7 @@ from flask_discord import DiscordOAuth2Session
 
 from sentry_sdk.integrations.flask import FlaskIntegration
 from sentry_sdk.integrations.excepthook import ExcepthookIntegration
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 from logviewer2.utils import GET_REV, GET_SECRET_KEY
 from logviewer2.utils.decos import with_logs, with_user
@@ -24,12 +25,12 @@ sentry_sdk.init(
 )
 
 app = Flask(__name__, template_folder="../templates", static_folder="../static")
+ProxyFix(app, x_for=1, x_host=1)
 app.config.from_object(__name__)
 app.config.update(
     SECRET_KEY=GET_SECRET_KEY(config),
     MAX_CONTENT_LENGTH=(16 * 1024 * 1024)
 )
-
 app.db = DB()
 # Auth :)
 dconfig = GET_DCONFIG(config)
