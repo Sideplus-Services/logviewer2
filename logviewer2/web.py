@@ -25,7 +25,7 @@ sentry_sdk.init(
 )
 
 app = Flask(__name__, template_folder="../templates", static_folder="../static")
-ProxyFix(app, x_for=1, x_host=1)
+app.wsgi_app = ProxyFix(app.wsgi_app)
 app.config.from_object(__name__)
 app.config.update(
     SECRET_KEY=GET_SECRET_KEY(config),
