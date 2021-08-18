@@ -75,6 +75,7 @@ def robotstxt():
 @with_user
 @with_logs
 def logviewer_render(gid, logkey):
+    print(dir(g))
     return g.document.render_html(user=g.user)
 
 
