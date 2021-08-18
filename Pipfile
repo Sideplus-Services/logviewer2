@@ -13,6 +13,7 @@ click = "*"
 python-dotenv = "*"
 requests-oauthlib = "*"
 flask-discord = {editable = true, ref = "v9", git = "https://github.com/weibeu/Flask-Discord.git"}
+sentry-sdk = {extras = ["flask"], version = "*"}
 
 [dev-packages]
 

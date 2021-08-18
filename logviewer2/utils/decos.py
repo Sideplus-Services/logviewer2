@@ -1,8 +1,6 @@
 from functools import wraps
 
 from flask import current_app, abort, g, session, request, url_for, redirect
-from oauthlib.oauth2.rfc6749.errors import InvalidClientError
-from flask_discord import Unauthorized
 
 from logviewer2.log_utils.models import LogEntry
 
@@ -30,7 +28,7 @@ def with_logs(fn):
         document = db.logs.find_one({"key": logkey})
         if not document:
             abort(404)
-        g.document = LogEntry(document)
+        g.document = LogEntry (document)
         return fn(*args, **kwargs)
 
     return decorated_view
@@ -61,12 +59,7 @@ def with_user(func):
     @wraps(func)
     def deco(*args, **kwargs):
         if current_app.discord.authorized:
-            try:
-                user = current_app.discord.fetch_user()
-            except InvalidClientError:
-                current_app.discord.revoke()
-                session["next_url"] = request.path
-                return redirect(url_for("auth.auth_discord"))
+            user = current_app.discord.fetch_user()
         else:
             user = None
         g.user = user
