@@ -73,8 +73,8 @@ def robotstxt():
 
 @app.route("/<int:gid>/<logkey>")
 @with_user
+@with_logs
 def logviewer_render(gid, logkey):
-    print(g.user)
     return g.document.render_html(user=g.user)
 
 
