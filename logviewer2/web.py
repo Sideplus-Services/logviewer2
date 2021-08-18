@@ -48,9 +48,15 @@ def root():
     return render_template('index.html', user=g.user)
 
 
+@app.route("/robots.txt")
+def robotstxt():
+    r = Response(response="User-Agent: *\nDisallow: /\n", status=200, mimetype="text/plain")
+    r.headers["Content-Type"] = "text/plain; charset=utf-8"
+    return r
+
+
 @app.route("/<int:gid>/<logkey>")
 @with_user
-@with_logs
 def logviewer_render(gid, logkey):
     return g.document.render_html(user=g.user)
 

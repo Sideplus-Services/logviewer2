@@ -1,6 +1,7 @@
 from functools import wraps
 
 from flask import current_app, abort, g, session, request, url_for, redirect
+from oauthlib.oauth2.rfc6749.errors import InvalidClientError
 from flask_discord import Unauthorized
 
 from logviewer2.log_utils.models import LogEntry
@@ -60,7 +61,12 @@ def with_user(func):
     @wraps(func)
     def deco(*args, **kwargs):
         if current_app.discord.authorized:
-            user = current_app.discord.fetch_user()
+            try:
+                user = current_app.discord.fetch_user()
+            except InvalidClientError:
+                current_app.discord.revoke()
+                session["next_url"] = request.path
+                return redirect(url_for("auth.auth_discord"))
         else:
             user = None
         g.user = user
