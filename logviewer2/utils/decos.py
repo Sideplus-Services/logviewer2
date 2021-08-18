@@ -28,7 +28,7 @@ def with_logs(fn):
         document = db.logs.find_one({"key": logkey})
         if not document:
             abort(404)
-        g.document = LogEntry (document)
+        g.document = LogEntry(document)
         return fn(*args, **kwargs)
 
     return decorated_view
