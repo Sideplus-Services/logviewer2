@@ -1,4 +1,5 @@
-from flask import Blueprint, current_app, redirect, session
+from flask import Blueprint, current_app, redirect, session, url_for
+from oauthlib.oauth2 import MismatchingStateError
 
 from logviewer2.utils.decos import authed, authed_redirect
 
@@ -19,7 +20,10 @@ def auth_discord():
 
 @Auth.route('/discord/callback')
 def auth_discord_callback():
-    current_app.discord.callback()
+    try:
+        current_app.discord.callback()
+    except MismatchingStateError:
+        return redirect(url_for("auth.auth_discord"))
     if session.get("next_url", None):
         url = str(session["next_url"])
         del session["next_url"]

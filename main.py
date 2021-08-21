@@ -1,10 +1,8 @@
+from gevent import monkey; monkey.patch_all()
+
 from logging.config import dictConfig
-
-from gevent import monkey
-
 from logviewer2.constants import Constants
 
-monkey.patch_all()
 
 import os
 os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
