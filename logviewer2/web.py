@@ -1,28 +1,16 @@
-import sentry_sdk
-
 from dotenv import dotenv_values
 from flask import Flask, render_template, Response, g
 from flask_discord import DiscordOAuth2Session
 
-from sentry_sdk.integrations.flask import FlaskIntegration
-from sentry_sdk.integrations.excepthook import ExcepthookIntegration
 from werkzeug.middleware.proxy_fix import ProxyFix
 
-from logviewer2.utils import GET_REV, GET_SECRET_KEY
+from logviewer2.utils import GET_SECRET_KEY
 from logviewer2.utils.decos import with_logs, with_user
 from logviewer2.utils.db import DB
 from logviewer2.utils.regexcfg import GET_DCONFIG
 from logviewer2.views import Auth
 
 config = dotenv_values(".env")
-
-sentry_sdk.init(
-    dsn=config.get("SENTRY_DSN", None),
-    release=GET_REV(),
-    integrations=[FlaskIntegration(), ExcepthookIntegration(always_run=True)],
-    traces_sample_rate=1.0,
-    _experiments={"auto_enabling_integrations": True},
-)
 
 app = Flask(__name__, template_folder="../templates", static_folder="../static")
 app.wsgi_app = ProxyFix(app.wsgi_app)

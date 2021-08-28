@@ -1,5 +1,3 @@
-# This is originaly from https://github.com/kyb3r/logviewer/blob/master/core/formatter.py please support the origonal author(s) :)
-# License (GNU General public License v3.0) https://github.com/kyb3r/logviewer/blob/master/LICENSE
 import html
 import re
 import base64

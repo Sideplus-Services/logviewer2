@@ -1,4 +1,11 @@
-from gevent import monkey; monkey.patch_all()
+from gevent import monkey;monkey.patch_all()
+
+import sentry_sdk
+
+from sentry_sdk.integrations.excepthook import ExcepthookIntegration
+from sentry_sdk.integrations.flask import FlaskIntegration
+
+from logviewer2.utils import GET_REV
 
 from logging.config import dictConfig
 from logviewer2.constants import Constants
@@ -27,6 +34,13 @@ def cli():
 @cli.command()
 @click.option('--debug/--no-debug', '-d', default=True)
 def serve(debug):
+    sentry_sdk.init(
+        dsn=config.get("SENTRY_DSN", None),
+        release=GET_REV(),
+        integrations=[FlaskIntegration(), ExcepthookIntegration(always_run=True)],
+        traces_sample_rate=1.0
+    )
+
     if debug:
         app.debug = True
         return run_simple(config.get("HOST", "localhost"), int(config.get("PORT", "5214")), app, use_debugger=True, use_reloader=True, use_evalex=True, threaded=True)

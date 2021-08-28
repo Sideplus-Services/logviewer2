@@ -1,6 +1,7 @@
 from functools import wraps
 
 from flask import current_app, abort, g, session, request, url_for, redirect
+from oauthlib.oauth2 import InvalidClientError, TokenExpiredError
 
 from logviewer2.log_utils.models import LogEntry
 
@@ -21,7 +22,12 @@ def with_logs(fn):
             if not current_app.discord.authorized:
                 session["next_url"] = request.path
                 return redirect(url_for("auth.auth_discord"))
-            current_user = current_app.discord.fetch_user()
+
+            try:
+                current_user = current_app.discord.fetch_user()
+            except (InvalidClientError, TokenExpiredError) as e:
+                return redirect(url_for("auth.auth_discord"))
+
             if current_user.id not in plconfig.get("allowed_users", []):
                 abort(403)
 
@@ -44,22 +50,14 @@ def authed(func):
     return deco
 
 
-def authed_redirect(func):
-    @wraps(func)
-    def deco(*args, **kwargs):
-        if not current_app.discord.authorized:
-            session["next_url"] = request.path
-            return redirect(url_for("auth.auth_discord"))
-        return func(*args, **kwargs)
-
-    return deco
-
-
 def with_user(func):
     @wraps(func)
     def deco(*args, **kwargs):
         if current_app.discord.authorized:
-            user = current_app.discord.fetch_user()
+            try:
+                user = current_app.discord.fetch_user()
+            except (InvalidClientError, TokenExpiredError) as e:
+                return redirect(url_for("auth.auth_discord"))
         else:
             user = None
         g.user = user
