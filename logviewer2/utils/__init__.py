@@ -34,5 +34,4 @@ def DOWNLOAD_FONTS():
             except:
                 continue
 
-    print(FDIR)
     return FDIR

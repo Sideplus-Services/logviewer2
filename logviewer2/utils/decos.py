@@ -6,6 +6,31 @@ from oauthlib.oauth2 import InvalidClientError, TokenExpiredError
 from logviewer2.log_utils.models import LogEntry
 
 
+def with_logs_evidence(fn):
+    @wraps(fn)
+    def decorated_view(*args, **kwargs):
+        gid = kwargs['gid']
+        logkey = kwargs['logkey']
+        db = current_app.db.get(gid)
+        if not db:
+            abort(404)
+
+        plconfig = db.plugins.logviewer2companion.find_one({"_id": "config"}) or {}
+
+        if not plconfig.get("allow_evidence_share", False):
+            # if its not enabled or no plugin config
+            abort(403)
+
+        document = db.logs.find_one({"key": logkey})
+        if not document:
+            abort(404)
+        g.document = LogEntry(document, evidence=True)
+        g.document.internal_messages = []  # :) remove internal messages from class
+        return fn(*args, **kwargs)
+
+    return decorated_view
+
+
 def with_logs(fn):
     @wraps(fn)
     def decorated_view(*args, **kwargs):
@@ -34,6 +59,7 @@ def with_logs(fn):
         document = db.logs.find_one({"key": logkey})
         if not document:
             abort(404)
+
         g.document = LogEntry(document)
         return fn(*args, **kwargs)
 

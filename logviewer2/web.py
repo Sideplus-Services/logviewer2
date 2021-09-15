@@ -8,7 +8,7 @@ from flask_discord import DiscordOAuth2Session
 from werkzeug.middleware.proxy_fix import ProxyFix
 
 from logviewer2.utils import GET_SECRET_KEY, DOWNLOAD_FONTS
-from logviewer2.utils.decos import with_logs, with_user
+from logviewer2.utils.decos import with_logs_evidence, with_logs, with_user
 from logviewer2.utils.db import DB
 from logviewer2.utils.regexcfg import GET_DCONFIG
 from logviewer2.views import Auth, Fproxy
@@ -79,6 +79,13 @@ def robotstxt():
 @with_user
 @with_logs
 def logviewer_render(gid, logkey):
+    return g.document.render_html(user=g.user)
+
+
+@app.route("/evidence/<int:gid>/<logkey>")
+@with_user
+@with_logs_evidence
+def logviewer_render_evidence(gid, logkey):
     return g.document.render_html(user=g.user)
 
 

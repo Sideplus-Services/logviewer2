@@ -7,7 +7,8 @@ from logviewer2.log_utils.formatter import format_content_html
 
 
 class LogEntry:
-    def __init__(self, data):
+    def __init__(self, data, evidence=False):
+        self.evidence = evidence
         self.key = data["key"]
         self.open = data["open"]
         self.created_at = dateutil.parser.parse(data["created_at"])
