@@ -20,15 +20,18 @@ app.config.from_object(__name__)
 app.config.update(
     SECRET_KEY=GET_SECRET_KEY(config),
     MAX_CONTENT_LENGTH=(16 * 1024 * 1024),
-    FDIR=DOWNLOAD_FONTS()
+    FDIR=DOWNLOAD_FONTS(),
+    ISSHUTDOWN=False
 )
 
 
 def keyboardInterruptHandler(s, frame):
-    if app.config.get("FDIR", False):
-        print("cleaning up Fonts")
-        app.config["FDIR"].cleanup()
-    os.kill(os.getpid(), signal.SIGINT)
+    if not app.config['ISSHUTDOWN']:
+        app.config['ISSHUTDOWN'] = True
+        if app.config.get("FDIR", False):
+            print("cleaning up Fonts")
+            app.config["FDIR"].cleanup()
+        os.kill(os.getpid(), signal.SIGTERM)
 
 
 signal.signal(signal.SIGINT, keyboardInterruptHandler)
