@@ -1,0 +1,14 @@
+{
+  "name": "logviewer2",
+  "version": "0.0.1",
+  "description": "dEPS",
+  "main": "NONE",
+  "repository": "https://github.com/Hackerjef/logviewer2.git",
+  "author": "Nadie <hackerjef@users.noreply.github.com>",
+  "license": "MIT",
+  "dependencies": {
+    "animate.css": "^4.1.1",
+    "highlight": "^0.2.4",
+    "jquery": "3.3.1"
+  }
+}
