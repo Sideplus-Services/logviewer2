@@ -4,7 +4,7 @@ from flask import current_app, abort, g, session, request, url_for, redirect
 from oauthlib.oauth2 import InvalidClientError, TokenExpiredError
 
 from logviewer2.log_utils.models import LogEntry
-from logviewer2.utils import GET_INSTANCE
+from logviewer2.utils import GET_INSTANCE, GET_USERS_FROM_ROLES
 
 
 def with_logs_evidence(fn):
@@ -65,7 +65,7 @@ def with_logs(fn):
             except (InvalidClientError, TokenExpiredError) as e:
                 return redirect(url_for("auth.auth_discord"))
 
-            if current_user.id not in plconfig.get("allowed_users", []):
+            if current_user.id not in GET_USERS_FROM_ROLES(plconfig.get("allowed_roles", {})) + plconfig.get("allowed_users", []):
                 abort(403)
 
         document = db.logs.find_one({"key": logkey})
