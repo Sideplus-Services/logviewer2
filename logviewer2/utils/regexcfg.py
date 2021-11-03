@@ -16,5 +16,5 @@ def GET_MCONFIG(cfg):
     for (key, value) in cfg.items():
         match = re.match(Constants.RE_ENV_MONGODB, key)
         if match:
-            obj[int(match.groups()[0])] = value
+            obj[match.groups()[0]] = value
     return obj

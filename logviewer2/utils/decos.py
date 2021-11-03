@@ -4,14 +4,20 @@ from flask import current_app, abort, g, session, request, url_for, redirect
 from oauthlib.oauth2 import InvalidClientError, TokenExpiredError
 
 from logviewer2.log_utils.models import LogEntry
+from logviewer2.utils import GET_INSTANCE
 
 
 def with_logs_evidence(fn):
     @wraps(fn)
     def decorated_view(*args, **kwargs):
-        gid = kwargs['gid']
+        gid, instid = None, None
+        try:
+            gid, instid = GET_INSTANCE(kwargs['qid'])
+        except ValueError:
+            abort(404)
+
         logkey = kwargs['logkey']
-        db = current_app.db.get(gid)
+        db = current_app.db.get(gid, instid)
         if not db:
             abort(404)
 
@@ -34,9 +40,15 @@ def with_logs_evidence(fn):
 def with_logs(fn):
     @wraps(fn)
     def decorated_view(*args, **kwargs):
-        gid = kwargs['gid']
+        try:
+            gid, instid = GET_INSTANCE(kwargs['qid'])
+        except ValueError:
+            gid, instid = None, None
+            abort(404)
+
         logkey = kwargs['logkey']
-        db = current_app.db.get(gid)
+
+        db = current_app.db.get(gid, instid)
         if not db:
             abort(404)
 

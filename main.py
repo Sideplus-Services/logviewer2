@@ -1,4 +1,4 @@
-from gevent import monkey;
+from gevent import monkey
 
 monkey.patch_all()
 
@@ -19,7 +19,6 @@ os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 import click
 from dotenv import dotenv_values
 from werkzeug.serving import run_simple
-from logviewer2.web import app
 
 
 @click.group()
@@ -42,6 +41,7 @@ def serve(debug):
         integrations=[FlaskIntegration(), ExcepthookIntegration(always_run=True)],
         traces_sample_rate=1.0
     )
+    from logviewer2.web import app
 
     if debug:
         app.debug = True
@@ -49,6 +49,16 @@ def serve(debug):
                           use_reloader=True, use_evalex=True, threaded=True)
     else:
         return run_simple(config.get("HOST", "localhost"), int(config.get("PORT", "5214")), app, threaded=True)
+
+
+@cli.command()
+@click.option('--new/--no-new', '-n', default=False)
+def secretkey(new):
+    from logviewer2.utils import GET_SECRET_KEY
+    key = GET_SECRET_KEY({} if new else dotenv_values(".env"))
+    if not new:
+        print(key.decode("utf-8"))
+    return key if not new else ""
 
 
 if __name__ == '__main__':

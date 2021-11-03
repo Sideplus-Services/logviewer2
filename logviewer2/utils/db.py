@@ -1,5 +1,7 @@
 from dotenv import dotenv_values
 from pymongo import MongoClient
+
+from logviewer2.utils import GET_INSTANCE
 from logviewer2.utils.regexcfg import GET_MCONFIG
 
 
@@ -10,7 +12,12 @@ class DB:
         self.dbs_conns = dict()
 
         for (gid, connURI) in self.dbs.items():
-            self.dbs_conns[gid] = MongoClient(connURI).modmail_bot
+            gid, instance = GET_INSTANCE(gid)
+            if gid not in self.dbs_conns:
+                self.dbs_conns[gid] = dict()
 
-    def get(self, gid):
-        return self.dbs_conns.get(int(gid), None)
+            self.dbs_conns[gid].update({instance: MongoClient(connURI).modmail_bot})
+
+    def get(self, gid, instance_id):
+        ginstances = self.dbs_conns.get(gid, dict())
+        return ginstances.get(instance_id, None)
