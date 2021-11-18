@@ -55,10 +55,3 @@ def DOWNLOAD_FONTS():
                 continue
 
     return FDIR
-
-
-def GET_USERS_FROM_ROLES(role_cfg):
-    users = []
-    for role in role_cfg:
-        users += role_cfg[role]
-    return users

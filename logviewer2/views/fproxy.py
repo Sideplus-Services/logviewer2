@@ -2,7 +2,6 @@ import os
 import re
 
 from flask import Blueprint, request, abort, current_app, send_file
-from requests import get as requests_get
 
 from logviewer2.constants import Constants
 
