@@ -1,0 +1,14 @@
+version: "3.9"
+services:
+  web:
+    stop_signal: SIGINT
+    restart: unless-stopped
+    build: .
+    environment:
+      ENV: docker
+    volumes:
+      - './:/logviewer2'
+      - '/logviewer2/static/modules'
+      - '/version'
+    ports:
+        - "8001:8001"

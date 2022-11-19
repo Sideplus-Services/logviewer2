@@ -1,5 +1,4 @@
 from gevent import monkey
-
 monkey.patch_all()
 
 import sentry_sdk
@@ -45,8 +44,7 @@ def serve(debug):
 
     if debug:
         app.debug = True
-        return run_simple(config.get("HOST", "localhost"), int(config.get("PORT", "5214")), app, use_debugger=True,
-                          use_reloader=True, use_evalex=True, threaded=True)
+        return run_simple(config.get("HOST", "localhost"), int(config.get("PORT", "5214")), app, use_debugger=True, use_reloader=True, use_evalex=True, threaded=True)
     else:
         return run_simple(config.get("HOST", "localhost"), int(config.get("PORT", "5214")), app, threaded=True)
 

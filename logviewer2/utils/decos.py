@@ -18,7 +18,7 @@ def with_logs_evidence(fn):
 
         logkey = kwargs['logkey']
         db = current_app.db.get(gid, instid)
-        if not db:
+        if db is None:
             abort(404)
 
         plconfig = db.plugins.logviewer2companion.find_one({"_id": "config"}) or {}
@@ -49,7 +49,7 @@ def with_logs(fn):
         logkey = kwargs['logkey']
 
         db = current_app.db.get(gid, instid)
-        if not db:
+        if db is None:
             abort(404)
 
         # get plugin config if exists
