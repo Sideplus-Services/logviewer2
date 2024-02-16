@@ -4,11 +4,8 @@ services:
     stop_signal: SIGINT
     restart: unless-stopped
     build: .
+    env_file: ./.env
     environment:
       ENV: docker
-    volumes:
-      - './:/logviewer2'
-      - '/logviewer2/static/modules'
-      - '/version'
     ports:
-        - "8001:8001"
+    - "${PORT}:${PORT}"

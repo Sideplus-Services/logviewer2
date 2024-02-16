@@ -1,7 +1,7 @@
+import logging
 import os
 import signal
 
-from dotenv import dotenv_values
 from flask import Flask, render_template, Response, g
 from flask_discord import DiscordOAuth2Session
 
@@ -13,17 +13,20 @@ from logviewer2.utils.db import DB
 from logviewer2.utils.regexcfg import GET_DCONFIG
 from logviewer2.views import Auth, Fproxy
 
-config = dotenv_values(".env")
 app = Flask(__name__, template_folder="../templates", static_folder="../static")
 app.wsgi_app = ProxyFix(app.wsgi_app)
 app.config.from_object(__name__)
 app.config.update(
-    SECRET_KEY=GET_SECRET_KEY(config),
+    SECRET_KEY=GET_SECRET_KEY(os.environ),
     MAX_CONTENT_LENGTH=(16 * 1024 * 1024),
     FDIR=DOWNLOAD_FONTS(),
     ISSHUTDOWN=False,
     SHUTDOWNC=0
 )
+
+gunicorn_logger = logging.getLogger('gunicorn.error')
+app.logger.handlers = gunicorn_logger.handlers
+app.logger.setLevel(gunicorn_logger.level)
 
 
 def keyboardInterruptHandler(s, frame):
@@ -47,7 +50,7 @@ signal.signal(signal.SIGINT, keyboardInterruptHandler)
 
 app.db = DB()
 # Auth :)
-dconfig = GET_DCONFIG(config)
+dconfig = GET_DCONFIG(os.environ)
 DiscordOAuth2Session(app, client_id=dconfig["CLIENT_ID"], client_secret=dconfig["CLIENT_SECRET"],
                      redirect_uri=dconfig["CLIENT_REDIRECT_URI"])
 app.register_blueprint(Auth)
@@ -101,7 +104,6 @@ def logviewer_render_evidence(qid, logkey):
     return g.document.render_html(user=g.user)
 
 
-# API killme
 @app.route("/api/raw/<string:qid>/<logkey>")
 @with_logs
 def api_raw_render(qid, logkey):
