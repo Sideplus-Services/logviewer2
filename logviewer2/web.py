@@ -83,6 +83,11 @@ def root():
     return render_template('index.html', user=g.user)
 
 
+@app.route("/daddy")
+def daddy():
+    return 69/0
+
+
 @app.route("/robots.txt")
 def robotstxt():
     r = Response(response="User-Agent: *\nDisallow: /\n", status=200, mimetype="text/plain")
