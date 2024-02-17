@@ -22,7 +22,7 @@
                 </li>
                 {% else %}
                 <li>
-                    <a class="dropdown-trigger waves-effect" href="#!" data-target="dropdown1">{{ user.name }}
+                    <a class="dropdown-trigger waves-effect" href="#!" data-target="dropdown1">{{ user | e }}
                         <img class='circle nav-icon' width='25px' src="{{ user.avatar_url }}">
                     </a>
                 </li>
@@ -48,7 +48,7 @@
         <div class="background" style='background-color:#2D2F33'>
         </div>
         <a><img class="circle" src="{{ user.avatar_url }}" alt="https://cdn.discordapp.com/embed/avatars/0.png"></a>
-        <a><span class="grey-text name"><b style='color:white'>{{ user.username}}</b>#{{ user.discriminator }}</span></a>
+        <a><span class="grey-text name"><b style='color:white'>{{ user | e }}</b></span></a>
         <br>
     </div>
     <li><a href="/api/auth/logout" class="waves-effect"><span class="grey-text">Logout</span></a></li>
