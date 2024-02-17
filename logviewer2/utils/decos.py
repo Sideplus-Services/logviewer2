@@ -21,7 +21,7 @@ def with_logs_evidence(fn):
         if db is None:
             abort(404)
 
-        plconfig = db.plugins.logviewer2companion.find_one({"_id": "config"}) or {}
+        plconfig = db.plugins.Logviewer2Companion.find_one({"_id": "config"}) or {}
 
         if not plconfig.get("allow_evidence_share", False):
             # if its not enabled or no plugin config
@@ -53,7 +53,7 @@ def with_logs(fn):
             abort(404)
 
         # get plugin config if exists
-        plconfig = db.plugins.logviewer2companion.find_one({"_id": "config"}) or {}
+        plconfig = db.plugins.Logviewer2Companion.find_one({"_id": "config"}) or {}
 
         if plconfig.get("enabled", False):
             if not current_app.discord.authorized:
