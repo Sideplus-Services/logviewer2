@@ -1,3 +1,5 @@
+import os
+
 from logviewer2.constants import Constants
 
 
@@ -44,7 +46,7 @@ def DOWNLOAD_FONTS():
     FDIR = tempfile.TemporaryDirectory()
     pFDIR = Path(FDIR.name)
     for name, file in Constants.FONTS.items():
-        with requests.get(Constants.DISCORD_ASSISTS_URL + file, stream=True) as r:
+        with requests.get(os.environ.get('FONT_HOST') + file, stream=True) as r:
             # noinspection PyBroadException
             try:
                 r.raise_for_status()

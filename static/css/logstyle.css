@@ -5,40 +5,95 @@
 
 /* === GENERAL === */
 
-@font-face {
-    font-family: Whitney;
-    font-style: light;
-    font-weight: 300;
-    src: url(/fproxy/FONT_WHITNEY_LIGHT) format('woff');
-  }
-  
-@font-face {
-    font-family: Whitney;
-    font-style: normal;
-    font-weight: 500;
-    src: url(/fproxy/FONT_WHITNEY_NORMAL) format('woff');
-  }
-  
-@font-face {
-    font-family: Whitney;
-    font-style: medium;
-    font-weight: 600;
-    src: url(/fproxy/FONT_WHITNEY_MEDIUM) format('woff');
-  }
-  
-@font-face {
-    font-family: WhitneyMedium;
-    font-style: medium;
-    font-weight: 600;
-    src: url(/fproxy/FONT_WHITNEYMEDIUM_MEDIUM) format('woff');
-  }
-  
-@font-face {
-    font-family: Whitney;
-    font-style: bold;
-    font-weight: 700;
-    src: url(/fproxy/FONT_WHITNEY_BOLD) format('woff');
-  }
+@font-face{
+    font-family:"gg-sans";
+    font-style:normal;
+    font-weight:400;
+    font-display:block;
+    src:url(/fproxy/gg_sans_normal400);
+    src:url(/fproxy/gg_sans_normal400) format("woff2");
+}
+
+@font-face{
+    font-family:"gg-sans";
+    font-style:italic;
+    font-weight:400;
+    font-display:block;
+    src:url(/fproxy/gg_sans_italic400);
+    src:url(/fproxy/gg_sans_italic400) format("woff2");
+}
+
+@font-face{
+    font-family:"gg-sans";
+    font-style:normal;
+    font-weight:500;
+    font-display:block;
+    src:url(/fproxy/gg_sans_normal500);
+    src:url(/fproxy/gg_sans_normal500) format("woff2");
+}
+
+@font-face{
+    font-family:"gg-sans";
+    font-style:italic;
+    font-weight:500;
+    font-display:block;
+    src:url(/fproxy/gg_sans_italic500);
+    src:url(/fproxy/gg_sans_italic500) format("woff2");
+}
+
+@font-face{
+    font-family:"gg-sans";
+    font-style:normal;
+    font-weight:600;
+    font-display:block;
+    src:url(/fproxy/gg_sans_normal600);
+    src:url(/fproxy/gg_sans_normal600) format("woff2");
+}
+
+@font-face{
+    font-family:"gg-sans";
+    font-style:italic;
+    font-weight:600;
+    font-display:block;
+    src:url(/fproxy/gg_sans_italic600);
+    src:url(/fproxy/gg_sans_italic600) format("woff2");
+}
+
+@font-face{
+    font-family:"gg-sans";
+    font-style:normal;
+    font-weight:700;
+    font-display:block;
+    src:url(/fproxy/gg_sans_normal700);
+    src:url(/fproxy/gg_sans_normal700) format("woff2");
+}
+
+@font-face{
+    font-family:"gg-sans";
+    font-style:italic;
+    font-weight:700;
+    font-display:block;
+    src:url(/fproxy/gg_sans_italic700);
+    src:url(/fproxy/gg_sans_italic700) format("woff2");
+}
+
+@font-face{
+    font-family:"gg-sans";
+    font-style:normal;
+    font-weight:800;
+    font-display:block;
+    src:url(/fproxy/gg_sans_normal800);
+    src:url(/fproxy/gg_sans_normal800) format("woff2");
+}
+
+@font-face{
+    font-family:"gg-sans";
+    font-style:italic;
+    font-weight:800;
+    font-display:block;
+    src:url(/fproxy/gg_sans_italic800);
+    src:url(/fproxy/gg_sans_italic800) format("woff2");
+}
 
 a {
     text-decoration: none;
@@ -49,7 +104,7 @@ img {
 }
 
 .pre {
-    font-family: "Consolas", "Courier New", Courier, Monospace;
+    font-family: "Consolas", "Courier New", Courier, Monospace, monospace;
     white-space: pre-wrap;
 }
 

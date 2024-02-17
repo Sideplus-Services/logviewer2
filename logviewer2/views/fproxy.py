@@ -8,11 +8,16 @@ from logviewer2.constants import Constants
 Fproxy = Blueprint('fproxy', __name__, url_prefix='/fproxy')
 
 
-@Fproxy.route('/FONT_WHITNEY_LIGHT')
-@Fproxy.route('/FONT_WHITNEY_NORMAL')
-@Fproxy.route('/FONT_WHITNEY_MEDIUM')
-@Fproxy.route('/FONT_WHITNEYMEDIUM_MEDIUM')
-@Fproxy.route('/FONT_WHITNEY_BOLD')
+@Fproxy.route('/gg_sans_normal400')
+@Fproxy.route('/gg_sans_italic400')
+@Fproxy.route('/gg_sans_normal500')
+@Fproxy.route('/gg_sans_italic500')
+@Fproxy.route('/gg_sans_normal600')
+@Fproxy.route('/gg_sans_italic600')
+@Fproxy.route('/gg_sans_normal700')
+@Fproxy.route('/gg_sans_italic700')
+@Fproxy.route('/gg_sans_normal800')
+@Fproxy.route('/gg_sans_italic800')
 def rfproxy():
     match = re.match(Constants.RE_FPROXY_FACE, request.url_rule.rule)
     if match:
