@@ -16,7 +16,7 @@ def auth_discord_logout():
 @Auth.route('/discord')
 def auth_discord():
     return current_app.discord.create_session(
-        scopes=["identify", "email", "guilds", "guilds.members.read", "connections"], prompt=False)
+        scope=["identify", "email", "guilds", "guilds.members.read", "connections"], prompt=False)
 
 
 @Auth.route('/discord/callback')
