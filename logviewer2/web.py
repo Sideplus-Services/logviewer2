@@ -29,7 +29,7 @@ app.logger.handlers = gunicorn_logger.handlers
 app.logger.setLevel(gunicorn_logger.level)
 
 
-def keyboardInterruptHandler(s, frame):
+def keyboard_interrupt_handler(s, frame):
     if not app.config['ISSHUTDOWN']:
         app.config['ISSHUTDOWN'] = True
         if app.config.get("FDIR", False):
@@ -46,7 +46,7 @@ def keyboardInterruptHandler(s, frame):
             print("kill hit {}/10 times - killing".format(app.config['SHUTDOWNC']))
 
 
-signal.signal(signal.SIGINT, keyboardInterruptHandler)
+signal.signal(signal.SIGINT, keyboard_interrupt_handler)
 
 app.db = DB()
 # Auth :)
