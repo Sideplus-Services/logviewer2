@@ -50,13 +50,13 @@
             <div class="info__guild-name"><span style='color:white'>Thread Logs</span> {% if log_entry.open %}
                 (Open){% else %}(Closed){% endif %}</div>
             <div title="{{ log_entry.recipient.id }}" class="info__channel-topic tooltip"><span style="color:white">Recipient:
-                <b>{{ log_entry.recipient | e }}</b>
+                <b>{{ log_entry.recipient | e }}</b></span>
                 <span class='tooltiptext pre pre--inline'>{{ log_entry.recipient.id }}</span>
             </div>
             {% if log_entry.recipient != log_entry.creator %}
             <br>
                 <div class="info__channel-topic tooltip"><span style="color:white">Creator:
-                    <b>{{ log_entry.creator | e }}</b>
+                    <b>{{ log_entry.creator | e }}</b></span>
                     <span class='tooltiptext pre pre--inline'>{{ log_entry.creator.id }}</span>
                 </div>
             {% endif %}
@@ -173,7 +173,7 @@
 
             let message_id = document.location.hash.split('#')[1]
             if (message_id) {
-                msg = document.getElementById(message_id)
+                let msg = document.getElementById(message_id)
                 if (msg) {
                     let group = msg.parentElement.parentElement
                     group.classList.add('perma_hover')
