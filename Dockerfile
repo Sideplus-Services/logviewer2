@@ -16,4 +16,6 @@ WORKDIR /logviewer2
 COPY . .
 RUN poetry config virtualenvs.create false && poetry install --no-interaction --no-ansi
 RUN yarn install --frozen-lockfile
+LABEL org.opencontainers.image.source=https://github.com/Sideplus-Services/logviewer2
+LABEL infra=modmail
 CMD ["poetry", "run", "web"]
