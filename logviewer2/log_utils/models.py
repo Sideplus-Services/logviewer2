@@ -116,15 +116,22 @@ class User:
         self.discriminator = data["discriminator"]
         self.avatar_url = data["avatar_url"]
         self.mod = data["mod"]
+        self.is_migrated = data["discriminator"] == "0"
+        self.global_name = data.get("global_name", None) or data["name"] if self.is_migrated else None
 
     @property
     def default_avatar_url(self):
         return "https://cdn.discordapp.com/embed/avatars/{}.png".format(
-            int(self.discriminator) % 5
+            (self.id >> 22) % 6
         )
 
     def __str__(self):
-        return f"{self.name}#{self.discriminator}"
+        if self.is_migrated and self.global_name:
+            return f"{self.global_name} (@{self.name})"
+        elif self.is_migrated:
+            return f"@{self.name}"
+        else:
+            return f"{self.name}#{self.discriminator}"
 
     def __eq__(self, other):
         return self.id == other.id and self.mod is other.mod
