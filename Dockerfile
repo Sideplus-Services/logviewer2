@@ -15,7 +15,7 @@ ENV PATH /opt/poetry/bin:$PATH
 FROM py as build
 WORKDIR /logviewer2
 COPY . .
-RUN poetry config virtualenvs.create false && poetry install --no-interaction --no-ansi
+RUN poetry config experimental.system-git-client true && poetry config virtualenvs.create false && poetry install --no-interaction --no-ansi
 RUN yarn install --frozen-lockfile
 
 FROM build
