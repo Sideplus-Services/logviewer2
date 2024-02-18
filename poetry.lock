@@ -302,7 +302,7 @@ docs = ["sphinx (==1.8.3)"]
 type = "git"
 url = "https://github.com/Aiko-IT-Systems/flask-discord.git"
 reference = "main"
-resolved_reference = "b416abfab7acc08cfbedd7742837b0b59a674143"
+resolved_reference = "ceda9629b8ba23f8fd357364744f7ec438fca803"
 
 [[package]]
 name = "gevent"
