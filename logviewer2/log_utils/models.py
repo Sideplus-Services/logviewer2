@@ -114,7 +114,7 @@ class User:
         self.id = int(data.get("id"))
         self.name = data["name"]
         self.discriminator = data["discriminator"]
-        self.avatar_url = data["avatar_url"]
+        self.avatar = data.get("avatar_url", None)
         self.mod = data["mod"]
         self.is_migrated = data["discriminator"] == "0"
         self.global_name = data.get("global_name", None) or data["name"] if self.is_migrated else None
@@ -124,6 +124,10 @@ class User:
         return "https://cdn.discordapp.com/embed/avatars/{}.png".format(
             (self.id >> 22) % 6
         )
+
+    @property
+    def avatar_url(self):
+        return self.avatar or self.default_avatar_url
 
     def __str__(self):
         if self.is_migrated and self.global_name:
