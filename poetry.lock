@@ -293,7 +293,7 @@ Flask = "*"
 oauthlib = "*"
 pyjwt = ">=2.4.0"
 requests = "*"
-requests-oauthlib = "*"
+requests_oauthlib = "*"
 
 [package.extras]
 docs = ["sphinx (==1.8.3)"]
@@ -302,7 +302,7 @@ docs = ["sphinx (==1.8.3)"]
 type = "git"
 url = "https://github.com/Aiko-IT-Systems/flask-discord.git"
 reference = "main"
-resolved_reference = "154056fa585a4bd6dd245db68770ae2c9129155a"
+resolved_reference = "b512d832182bfc4ddd1b40d730c68826e70f2c8e"
 
 [[package]]
 name = "gevent"
