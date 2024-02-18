@@ -40,10 +40,10 @@ def with_logs_evidence(fn):
 def with_logs(fn):
     @wraps(fn)
     def decorated_view(*args, **kwargs):
+        gid, instid = None, None
         try:
             gid, instid = GET_INSTANCE(kwargs['qid'])
         except ValueError:
-            gid, instid = None, None
             abort(404)
 
         logkey = kwargs['logkey']
@@ -62,7 +62,7 @@ def with_logs(fn):
 
             try:
                 current_user = current_app.discord.fetch_user()
-            except (InvalidClientError, TokenExpiredError) as e:
+            except (InvalidClientError, TokenExpiredError):
                 return redirect(url_for("auth.auth_discord"))
 
             allowed_users = []
@@ -99,7 +99,7 @@ def with_user(func):
         if current_app.discord.authorized:
             try:
                 user = current_app.discord.fetch_user()
-            except (InvalidClientError, TokenExpiredError) as e:
+            except (InvalidClientError, TokenExpiredError):
                 return redirect(url_for("auth.auth_discord"))
         else:
             user = None

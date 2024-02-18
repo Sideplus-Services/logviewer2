@@ -1,3 +1,7 @@
+from __future__ import annotations
+
+from types import FrameType
+
 import logging
 import os
 import signal
@@ -29,7 +33,7 @@ app.logger.handlers = gunicorn_logger.handlers
 app.logger.setLevel(gunicorn_logger.level)
 
 
-def keyboard_interrupt_handler(s, frame):
+def keyboard_interrupt_handler(_s: int, _frame: FrameType | None) -> None:
     if not app.config['ISSHUTDOWN']:
         app.config['ISSHUTDOWN'] = True
         if app.config.get("FDIR", False):
@@ -60,25 +64,25 @@ app.register_blueprint(Fproxy)
 # errors
 @app.errorhandler(403)
 @with_user
-def page_not_found(e):
+def page_not_found(_e):
     return render_template("unauthorized.html", user=g.user), 403
 
 
 @app.errorhandler(404)
 @with_user
-def page_not_found(e):
+def page_not_found(_e):
     return render_template("not_found.html", user=g.user), 404
 
 
 @app.errorhandler(405)
 @with_user
-def page_not_found_method(e):
+def page_not_found_method(_e):
     return render_template("not_found.html", user=g.user), 405
 
 
 @app.errorhandler(500)
 @with_user
-def page_not_found(e):
+def page_not_found(_e):
     return render_template("server_error.html", user=g.user), 500
 
 

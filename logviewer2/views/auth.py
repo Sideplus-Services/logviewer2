@@ -38,7 +38,7 @@ def auth_discord_callback():
 def auth_me():
     try:
         data = dict(current_app.discord.fetch_user().__dict__)
-    except (InvalidClientError, TokenExpiredError) as e:
+    except (InvalidClientError, TokenExpiredError):
         return redirect(url_for("auth.auth_discord"))
     for k in list(data.keys()):
         if k.startswith('_'):
