@@ -91,7 +91,7 @@ def with_logs(fn):
 
             allowed_role = False
             allowed_user = False
-            if guild_member:
+            if guild_member and guild_member.roles:
                 for role in guild_member.roles:
                     if role in allowed_roles_and_users:
                         allowed_role = True
