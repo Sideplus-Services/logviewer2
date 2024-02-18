@@ -247,11 +247,12 @@ img {
 
 body {
     background-color: #2F3135;
+    font-family: "gg-sans", "Whitney", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .entry {
     color: rgba(255, 255, 255, 0.7);
-    font-family: "Whitney", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "gg-sans", "Whitney", "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 16px;
 }
 
