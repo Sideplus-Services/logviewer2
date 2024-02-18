@@ -8,16 +8,16 @@ from logviewer2.constants import Constants
 Fproxy = Blueprint('fproxy', __name__, url_prefix='/fproxy')
 
 
-@Fproxy.route('/gg_sans_normal400')
-@Fproxy.route('/gg_sans_italic400')
-@Fproxy.route('/gg_sans_normal500')
-@Fproxy.route('/gg_sans_italic500')
-@Fproxy.route('/gg_sans_normal600')
-@Fproxy.route('/gg_sans_italic600')
-@Fproxy.route('/gg_sans_normal700')
-@Fproxy.route('/gg_sans_italic700')
-@Fproxy.route('/gg_sans_normal800')
-@Fproxy.route('/gg_sans_italic800')
+@Fproxy.get('/gg_sans_normal400')
+@Fproxy.get('/gg_sans_italic400')
+@Fproxy.get('/gg_sans_normal500')
+@Fproxy.get('/gg_sans_italic500')
+@Fproxy.get('/gg_sans_normal600')
+@Fproxy.get('/gg_sans_italic600')
+@Fproxy.get('/gg_sans_normal700')
+@Fproxy.get('/gg_sans_italic700')
+@Fproxy.get('/gg_sans_normal800')
+@Fproxy.get('/gg_sans_italic800')
 def rfproxy():
     match = re.match(Constants.RE_FPROXY_FACE, request.url_rule.rule)
     if match:
@@ -30,7 +30,7 @@ def rfproxy():
 
             # Check if path is a file and serve
             if os.path.isfile(abs_path):
-                return send_file(abs_path)
+                return send_file(str(abs_path))
         except:
             return abort(404)
     else:

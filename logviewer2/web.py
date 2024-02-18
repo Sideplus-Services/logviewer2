@@ -70,6 +70,12 @@ def page_not_found(e):
     return render_template("not_found.html", user=g.user), 404
 
 
+@app.errorhandler(405)
+@with_user
+def page_not_found_method(e):
+    return render_template("not_found.html", user=g.user), 405
+
+
 @app.errorhandler(500)
 @with_user
 def page_not_found(e):
@@ -77,13 +83,13 @@ def page_not_found(e):
 
 
 # Pages
-@app.route("/")
+@app.get("/")
 @with_user
 def root():
     return render_template('index.html', user=g.user)
 
 
-@app.route("/daddy")
+@app.get("/daddy")
 def daddy():
     return 69/0
 
@@ -95,21 +101,21 @@ def robotstxt():
     return r
 
 
-@app.route("/<string:qid>/<logkey>")
+@app.get("/<string:qid>/<logkey>")
 @with_user
 @with_logs
 def logviewer_render(qid, logkey):
     return g.document.render_html(user=g.user)
 
 
-@app.route("/evidence/<string:qid>/<logkey>")
+@app.get("/evidence/<string:qid>/<logkey>")
 @with_user
 @with_logs_evidence
 def logviewer_render_evidence(qid, logkey):
     return g.document.render_html(evidence=True, user=g.user)
 
 
-@app.route("/api/raw/<string:qid>/<logkey>")
+@app.get("/api/raw/<string:qid>/<logkey>")
 @with_logs
 def api_raw_render(qid, logkey):
     return Response(g.document.render_plain_text(), mimetype="text/plain"), 200

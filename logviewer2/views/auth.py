@@ -6,20 +6,20 @@ from logviewer2.utils.decos import authed
 Auth = Blueprint('auth', __name__, url_prefix='/api/auth')
 
 
-@Auth.route('/logout', methods=['POST', 'GET'])
+@Auth.get('/logout')
 @authed
 def auth_discord_logout():
     current_app.discord.revoke()
     return redirect(url_for("root"))
 
 
-@Auth.route('/discord')
+@Auth.get('/discord')
 def auth_discord():
     return current_app.discord.create_session(
         scope=["identify", "email", "guilds", "guilds.members.read", "connections"], prompt=False)
 
 
-@Auth.route('/discord/callback')
+@Auth.post('/discord/callback')
 def auth_discord_callback():
     try:
         current_app.discord.callback()
@@ -33,7 +33,7 @@ def auth_discord_callback():
     return redirect(url_for("root"))
 
 
-@Auth.route('/@me')
+@Auth.get('/@me')
 @authed
 def auth_me():
     try:
