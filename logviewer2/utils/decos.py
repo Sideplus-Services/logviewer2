@@ -69,7 +69,7 @@ def with_logs(fn):
             if current_user.guild_members is not None:
                 try:
                     guild_member = current_user.guild_members[gid]
-                except KeyError:
+                except (KeyError, IndexError):
                     try:
                         guild_member = current_user.fetch_guild_member(gid)
                     except AttributeError:
