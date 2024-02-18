@@ -6,7 +6,7 @@ from logviewer2.utils.decos import authed
 Auth = Blueprint('auth', __name__, url_prefix='/api/auth')
 
 
-@Auth.get('/logout')
+@Auth.route('/logout', methods=["GET", "POST"])
 @authed
 def auth_discord_logout():
     current_app.discord.revoke()
@@ -19,7 +19,7 @@ def auth_discord():
         scope=["identify", "email", "guilds", "guilds.members.read", "connections"], prompt=False)
 
 
-@Auth.post('/discord/callback')
+@Auth.get('/discord/callback')
 def auth_discord_callback():
     try:
         current_app.discord.callback()
