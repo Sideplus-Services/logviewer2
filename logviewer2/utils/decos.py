@@ -71,10 +71,7 @@ def with_logs(fn):
                     guild_member = current_user.guild_members[gid]
                 except (KeyError, IndexError):
                     try:
-                        current_app.logger.warning(f"fetching guild member {gid} for {current_user.id}")
                         guild_member = current_user.fetch_guild_member(gid)
-                        # log the guild_member object
-                        current_app.logger.warning(guild_member)
                     except AttributeError:
                         guild_member = None
             else:
@@ -96,7 +93,7 @@ def with_logs(fn):
             allowed_user = False
             if guild_member and guild_member.roles:
                 for role in guild_member.roles:
-                    if role in allowed_roles_and_users:
+                    if int(role) in allowed_roles_and_users:
                         allowed_role = True
                         break
                 if current_user.id in allowed_roles_and_users or current_user.id in allowed_users:
