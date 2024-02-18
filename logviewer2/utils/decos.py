@@ -66,13 +66,19 @@ def with_logs(fn):
             except (InvalidClientError, TokenExpiredError):
                 return redirect(url_for("auth.auth_discord"))
 
-            try:
+            if current_user.guild_members is not None:
                 try:
                     guild_member = current_user.guild_members[gid]
-                except AttributeError:
+                except KeyError:
+                    try:
+                        guild_member = current_user.fetch_guild_member(gid)
+                    except AttributeError:
+                        guild_member = None
+            else:
+                try:
                     guild_member = current_user.fetch_guild_member(gid)
-            except AttributeError:
-                guild_member = None
+                except AttributeError:
+                    guild_member = None
 
             allowed_users = []
             allowed_roles_and_users = []
