@@ -67,7 +67,10 @@ def with_logs(fn):
                 return redirect(url_for("auth.auth_discord"))
 
             try:
-                guild_member = current_user.fetch_guild_member(gid)
+                try:
+                    guild_member = current_user.guild_members[gid]
+                except AttributeError:
+                    guild_member = current_user.fetch_guild_member(gid)
             except AttributeError:
                 guild_member = None
 
