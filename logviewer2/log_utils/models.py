@@ -58,8 +58,8 @@ class LogEntry:
         groups.append(curr)
         return groups
 
-    def render_html(self, **kwargs):
-        return render_template("logbase.html", log_entry=self, **kwargs)
+    def render_html(self, evidence=False, **kwargs):
+        return render_template("logbase.html", log_entry=self, evidence=evidence, **kwargs)
 
     def render_plain_text(self):
         messages = self.messages

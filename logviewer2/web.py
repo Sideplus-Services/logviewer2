@@ -106,7 +106,7 @@ def logviewer_render(qid, logkey):
 @with_user
 @with_logs_evidence
 def logviewer_render_evidence(qid, logkey):
-    return g.document.render_html(user=g.user)
+    return g.document.render_html(evidence=True, user=g.user)
 
 
 @app.route("/api/raw/<string:qid>/<logkey>")
