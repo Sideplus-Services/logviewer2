@@ -71,10 +71,10 @@ def with_logs(fn):
                     guild_member = current_user.guild_members[gid]
                 except (KeyError, IndexError):
                     try:
-                        current_app.logger.debug(f"fetching guild member {gid} for {current_user.id}")
+                        current_app.logger.warning(f"fetching guild member {gid} for {current_user.id}")
                         guild_member = current_user.fetch_guild_member(gid)
                         # log the guild_member object
-                        current_app.logger.debug(guild_member)
+                        current_app.logger.warning(guild_member)
                     except AttributeError:
                         guild_member = None
             else:
