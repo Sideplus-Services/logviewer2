@@ -2,7 +2,7 @@
 name = "logviewer2"
 version = "0.1.0"
 description = ""
-authors = ["Nadie <hackerjef@users.noreply.github.com>"]
+authors = ["Nadie <hackerjef@users.noreply.github.com>", "Lala Sabathil <aiko@aitsys.dev>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
