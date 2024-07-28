@@ -10,11 +10,16 @@ Auth = Blueprint('auth', __name__, url_prefix='/api/auth')
 @authed
 def auth_discord_logout():
     current_app.discord.revoke()
+    session.clear()  # Clear the session on logout
     return redirect(url_for("root"))
 
 
 @Auth.get('/discord')
 def auth_discord():
+    # Store the next URL in the session if provided
+    next_url = request.args.get('next', None)
+    if next_url:
+        session['next_url'] = next_url
     return current_app.discord.create_session(
         scope=["identify", "email", "guilds", "guilds.members.read", "connections"], prompt=False)
 
@@ -22,13 +27,24 @@ def auth_discord():
 @Auth.get('/discord/callback')
 def auth_discord_callback():
     try:
-        current_app.discord.callback()
+        # Handle the OAuth2 callback and fetch the token
+        token = current_app.discord.callback()
+        session['oauth_token'] = token
     except MismatchingStateError:
+        # Redirect to login if the state doesn't match
+        return redirect(url_for("auth.auth_discord"))
+    except InvalidClientError as e:
+        # Handle client errors
+        print(f"Invalid client error: {e}")
+        return redirect(url_for("auth.auth_discord"))
+    except TokenExpiredError as e:
+        # Handle expired tokens
+        print(f"Token expired error: {e}")
         return redirect(url_for("auth.auth_discord"))
 
-    if session.get("next_url", None):
-        url = str(session["next_url"])
-        del session["next_url"]
+    # Redirect to the next URL if provided
+    if 'next_url' in session:
+        url = session.pop('next_url')
         return redirect(url)
     return redirect(url_for("root"))
 
