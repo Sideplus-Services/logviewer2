@@ -1,4 +1,4 @@
-from flask import Blueprint, current_app, redirect, session, url_for
+from flask import Blueprint, current_app, redirect, session, url_for, request
 from oauthlib.oauth2 import InvalidClientError, TokenExpiredError, MismatchingStateError
 
 from logviewer2.utils.decos import authed
