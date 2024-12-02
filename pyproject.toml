@@ -6,7 +6,7 @@ authors = ["Nadie <hackerjef@users.noreply.github.com>", "Lala Sabathil <aiko@ai
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.12"
+python = "3.12.4"
 flask = "^3.0.2"
 gevent = "^24.2.1"
 natural = "^0.2.0"
@@ -19,6 +19,7 @@ sentry-sdk = {extras = ["flask"], version = "2.8.0"}
 flask-discord = {git = "https://github.com/Aiko-IT-Systems/flask-discord.git", rev = "main"}
 gunicorn = "22.0.0"
 psycogreen = "^1.0.2"
+audioop-lts = { version = "*", markers = "python_version >= '3.13'" }
 
 [tool.poetry.scripts]
 web = 'scripts:web'
