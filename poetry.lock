@@ -694,7 +694,7 @@ tests = ["coverage[toml] (==5.0.4)", "pytest (>=6.0.0,<7.0.0)"]
 [[package]]
 name = "pymongo"
 version = "4.9.2"
-description = "Python driver for MongoDB <http://www.mongodb.org>"
+description = "Python driver for MongoDB <https:///www.mongodb.org>"
 optional = false
 python-versions = ">=3.8"
 files = [

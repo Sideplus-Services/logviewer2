@@ -1,6 +1,7 @@
 {#From original github for logviewer https://github.com/kyb3r/logviewer#}
 {#License (GNU General public License v3.0) https://github.com/kyb3r/logviewer/blob/master/LICENSE #}
 <!DOCTYPE html>
+<!--suppress ALL -->
 <html lang="en">
 
 <head>
@@ -157,7 +158,7 @@
                     if (!elem.classList.contains('perma_hover')) {
                         should_add = true
                     }
-                    removePermaHover()
+                    removePermaHover(elem)
                     if (should_add) {
                         history.pushState(null, null, '#' + child.id);
                         elem.classList.add('perma_hover')

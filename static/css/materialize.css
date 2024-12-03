@@ -2815,7 +2815,7 @@ video.responsive-video {
   color: rgba(255, 255, 255, 0.7);
   vertical-align: top;
   display: inline-block;
-  font-family: 'Material Icons';
+  font-family: 'Material Icons', serif;
   font-weight: normal;
   font-style: normal;
   font-size: 25px;
@@ -2982,7 +2982,7 @@ ul.staggered-list li {
   -webkit-justify-content: space-between;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  padding: 10px 0px;
+  padding: 10px 0;
   color: rgba(255, 255, 255, 0.8);
   background-color: rgba(51, 51, 51, 0.08);
 }
@@ -4521,7 +4521,7 @@ html {
 
 @media only screen and (min-width: 992px) {
   html {
-    font-size: 14.5px;
+    font-size: 15px;
   }
 }
 
@@ -4970,7 +4970,7 @@ small {
 @media only screen and (max-width: 600px) {
   #toast-container {
     min-width: 100%;
-    bottom: 0%;
+    bottom: 0;
   }
 }
 
@@ -5176,8 +5176,8 @@ small {
   border-radius: 0 0 50% 50%;
   background-color: #323232;
   z-index: -1;
-  -webkit-transform-origin: 50% 0%;
-          transform-origin: 50% 0%;
+  -webkit-transform-origin: 50% 0;
+          transform-origin: 50% 0;
   visibility: hidden;
 }
 
@@ -5272,7 +5272,7 @@ small {
   color: #fff;
   background-color: #26a69a;
   text-align: center;
-  letter-spacing: .5px;
+  letter-spacing: 1px;
   -webkit-transition: background-color .2s ease-out;
   transition: background-color .2s ease-out;
   cursor: pointer;
@@ -5323,8 +5323,8 @@ small {
 }
 
 .btn-floating.btn-small {
-  width: 32.4px;
-  height: 32.4px;
+  width: 32px;
+  height: 32px;
 }
 
 .btn-floating.btn-small.halfway-fab {
@@ -5332,7 +5332,7 @@ small {
 }
 
 .btn-floating.btn-small i {
-  line-height: 32.4px;
+  line-height: 32px;
 }
 
 .btn-floating.halfway-fab {
@@ -5390,7 +5390,7 @@ button.btn-floating {
 
 .fixed-action-btn.direction-left ul li, .fixed-action-btn.direction-right ul li {
   display: inline-block;
-  margin: 7.5px 15px 0 0;
+  margin: 8px 15px 0 0;
 }
 
 .fixed-action-btn.direction-right {
@@ -5405,7 +5405,7 @@ button.btn-floating {
 }
 
 .fixed-action-btn.direction-right ul li {
-  margin: 7.5px 0 0 15px;
+  margin: 8px 0 0 15px;
 }
 
 .fixed-action-btn.direction-bottom {
@@ -5547,8 +5547,8 @@ button.btn-floating {
 }
 
 .btn-small {
-  height: 32.4px;
-  line-height: 32.4px;
+  height: 32px;
+  line-height: 32px;
   font-size: 13px;
 }
 
@@ -5942,7 +5942,7 @@ body.keyboard-focused .dropdown-content li:focus {
 
 .sidenav .collapsible-body li a,
 .sidenav.fixed .collapsible-body li a {
-  padding: 0 23.5px 0 31px;
+  padding: 0 24px 0 31px;
 }
 
 .collapsible.popout {
@@ -6099,7 +6099,7 @@ body.keyboard-focused .dropdown-content li:focus {
   left: 0;
   width: 100%;
   text-align: center;
-  padding: 0% 15%;
+  padding: 0 15%;
   height: 50px;
   z-index: 1000;
   -webkit-font-smoothing: antialiased;
@@ -6555,8 +6555,8 @@ textarea.materialize-textarea + label:after, .select-wrapper + label:after {
   transition: color .2s ease-out, -webkit-transform .2s ease-out;
   transition: transform .2s ease-out, color .2s ease-out;
   transition: transform .2s ease-out, color .2s ease-out, -webkit-transform .2s ease-out;
-  -webkit-transform-origin: 0% 100%;
-          transform-origin: 0% 100%;
+  -webkit-transform-origin: 0 100%;
+          transform-origin: 0 100%;
   text-align: initial;
   -webkit-transform: translateY(12px);
           transform: translateY(12px);
@@ -7132,13 +7132,12 @@ input[type=range]::-webkit-slider-thumb {
   height: 14px;
   width: 14px;
   border-radius: 50%;
-  background: #26a69a;
   -webkit-transition: -webkit-box-shadow .3s;
   transition: -webkit-box-shadow .3s;
   transition: box-shadow .3s;
   transition: box-shadow .3s, -webkit-box-shadow .3s;
   -webkit-appearance: none;
-  background-color: #26a69a;
+  background: #26a69a;
   -webkit-transform-origin: 50% 50%;
           transform-origin: 50% 50%;
   margin: -5px 0 0 0;
@@ -8092,8 +8091,8 @@ input[type=range]::-ms-thumb {
           perspective: 500px;
   -webkit-transform-style: preserve-3d;
           transform-style: preserve-3d;
-  -webkit-transform-origin: 0% 50%;
-          transform-origin: 0% 50%;
+  -webkit-transform-origin: 0 50%;
+          transform-origin: 0 50%;
 }
 
 .carousel.carousel-slider {
@@ -8673,9 +8672,7 @@ input[type=range]::-ms-thumb {
   height: 270px;
   overflow: visible;
   position: relative;
-  margin: auto;
-  margin-top: 25px;
-  margin-bottom: 5px;
+  margin: 25px auto 5px;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
