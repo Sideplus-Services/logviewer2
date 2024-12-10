@@ -1,5 +1,5 @@
 from flask import Blueprint, current_app, redirect, session, url_for, request
-from oauthlib.oauth2 import InvalidClientError, TokenExpiredError, MismatchingStateError
+from oauthlib.oauth2 import InvalidClientError, TokenExpiredError, MismatchingStateError, InvalidGrantError
 
 from logviewer2.utils.decos import authed
 
@@ -36,6 +36,9 @@ def auth_discord_callback():
     except TokenExpiredError as e:
         print(f"Token expired error: {e}")
         return redirect(url_for("auth.auth_discord"))
+    except InvalidGrantError as e:
+        print(f"Invalid grant error: {e}")
+        return redirect(url_for("auth.auth_discord"))
 
     if 'next_url' in session:
         url = session.pop('next_url')
@@ -48,7 +51,7 @@ def auth_discord_callback():
 def auth_me():
     try:
         data = dict(current_app.discord.fetch_user().__dict__)
-    except (InvalidClientError, TokenExpiredError):
+    except (InvalidClientError, TokenExpiredError, InvalidGrantError):
         return redirect(url_for("auth.auth_discord"))
     for k in list(data.keys()):
         if k.startswith('_'):

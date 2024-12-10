@@ -1,7 +1,7 @@
 from functools import wraps
 
 from flask import current_app, abort, g, session, request, url_for, redirect
-from oauthlib.oauth2 import InvalidClientError, TokenExpiredError
+from oauthlib.oauth2 import InvalidClientError, TokenExpiredError, InvalidGrantError
 
 from logviewer2.log_utils.models import LogEntry
 from logviewer2.utils import GET_INSTANCE
@@ -63,7 +63,7 @@ def with_logs(fn):
 
             try:
                 current_user = current_app.discord.fetch_user()
-            except (InvalidClientError, TokenExpiredError):
+            except (InvalidClientError, TokenExpiredError, InvalidGrantError):
                 return redirect(url_for("auth.auth_discord"))
 
             if current_user.guild_members is not None:
@@ -129,7 +129,7 @@ def with_user(func):
         if current_app.discord.authorized:
             try:
                 user = current_app.discord.fetch_user()
-            except (InvalidClientError, TokenExpiredError):
+            except (InvalidClientError, TokenExpiredError, InvalidGrantError):
                 return redirect(url_for("auth.auth_discord"))
         else:
             user = None
