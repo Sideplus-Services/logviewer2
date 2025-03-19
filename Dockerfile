@@ -16,7 +16,7 @@ FROM py
 WORKDIR /logviewer2
 ENV ENV docker
 COPY . .
-RUN poetry config experimental.system-git-client true && poetry config virtualenvs.create false && poetry install --no-interaction --no-ansi
+RUN poetry config virtualenvs.create false && poetry install --no-interaction --no-ansi
 RUN yarn install --frozen-lockfile
 LABEL org.opencontainers.image.source=https://github.com/Sideplus-Services/logviewer2
 LABEL infra=modmail
