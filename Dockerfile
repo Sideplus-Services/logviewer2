@@ -1,4 +1,4 @@
-FROM python:3.12.4-slim-bookworm as py
+FROM python:3.12.7-slim-bookworm as py
 ENV PYTHONFAULTHANDLER=1 \
   PYTHONUNBUFFERED=1 \
   PYTHONHASHSEED=random \

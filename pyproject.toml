@@ -6,7 +6,7 @@ authors = ["Nadie <hackerjef@users.noreply.github.com>", "Lala Sabathil <aiko@ai
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "3.12.4"
+python = "3.12.7"
 flask = "^3.0.2"
 gevent = "^24.2.1"
 natural = "^0.2.0"
